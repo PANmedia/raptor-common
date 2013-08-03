@@ -71,7 +71,7 @@ function templateGet(name) {
  */
 function templateConvertTokens(template, variables) {
     // Translate template
-    template = template.replace(/_\(['"]{1}(.*?)['"]{1}\)/g, function(match, key) {
+    template = template.replace(/tr\(['"]{1}(.*?)['"]{1}\)/g, function(match, key) {
         key = key.replace(/\\(.?)/g, function (s, slash) {
             switch (slash) {
                 case '\\': {

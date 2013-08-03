@@ -31,9 +31,14 @@ var localeNames = {};
 function registerLocale(name, nativeName, strings) {
     // <strict>
     if (locales[name]) {
-        handleError('Locale ' + name + ' has already been registered, and will be overwritten');
+        handleError('Locale ' + name + ' has already been registered, and will be overwritten.');
     }
     // </strict>
+    // <debug>
+    if (debugLevel > MIN) {
+        handleError('Locale ' + name + ' registered.');
+    }
+    // </debug>
 
     locales[name] = strings;
     localeNames[name] = nativeName;
@@ -49,9 +54,18 @@ function registerLocale(name, nativeName, strings) {
  * @param {String} name
  * @param {Object} strings
  */
-function extendLocale(name, strings) {
-    for (var key in strings) {
-        locales[name][key] = strings[key];
+function extendLocale(name, nativeName, strings) {
+    if (typeof locales[name] === 'undefined') {
+        registerLocale(name, nativeName, strings);
+    } else {
+        // <debug>
+        if (debugLevel > MIN) {
+            handleError('Locale ' + name + ' extended.');
+        }
+        // </debug>
+        for (var key in strings) {
+            locales[name][key] = strings[key];
+        }
     }
 }
 
