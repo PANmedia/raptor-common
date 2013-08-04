@@ -24,3 +24,9 @@ function nodeClosestByClassName(node, className) {
     }
     return null;
 }
+
+function nodeFromHtml(html) {
+    var node = document.createElement('div');
+    node.innerHTML = html;
+    return node.children[0];
+}
