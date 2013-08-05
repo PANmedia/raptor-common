@@ -12,54 +12,11 @@
  */
 var templateCache = { /* <templates/> */ };
 
-// <template>
-var templateRegistrar = {};
-
-function templateRegister(name, url) {
-    templateRegistrar[name] = url;
+function templateRegister(name, content) {
+    templateCache[name] = content;
 }
-// </template>
 
-/**
- *
- * @param {type} name
- * @param {type} urlPrefix
- * @returns {templateGet.name}
- */
 function templateGet(name) {
-    // <template>
-    if (!templateCache[name]) {
-        // <debug>
-        if (!templateRegistrar[name]) {
-            handleError('Missing template: ' + name);
-            return null;
-        }
-        // </debug>
-
-        var template;
-        $.ajax({
-            url: templateRegistrar[name],
-            type: 'GET',
-            async: false,
-            // <debug>
-            // cache: false,
-            // </debug>
-            // 15 seconds
-            timeout: 15000,
-            error: function() {
-                template = null;
-            },
-            success: function(data) {
-                template = data;
-            }
-        });
-
-        // Cache the template
-        templateCache[name] = template;
-
-        return template;
-    }
-    // </template>
     return templateCache[name];
 };
 
