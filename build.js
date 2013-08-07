@@ -1,9 +1,6 @@
 builder.addModule({
     name: 'Common',
     type: 'common',
-    include: [
-        'locale'
-    ],
     files: [
         __dirname + '/debug.js',
         __dirname + '/format.js',
