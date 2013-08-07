@@ -10,3 +10,11 @@ builder.addModule({
         __dirname + '/types.js'
     ]
 });
+
+builder.addModule({
+    name: 'jQuery UI Adapter',
+    type: 'common',
+    files: [
+        __dirname + '/adapters/jquery-ui.js'
+    ]
+});
