@@ -15,9 +15,11 @@
  */
 function aButton(element, options) {
     // <strict>
+/*
     if (!typeIsElement(element)) {
         handleInvalidArgumentError('Parameter 1 to aButton is expected to be a jQuery element', element);
     }
+*/
     // </strict>
 
     return $(element).button(options);
@@ -160,18 +162,10 @@ function aDialog(element, options) {
     // </strict>
 
     var dialog = $(element).dialog(options);
-    // TODO: Remove this when jQuery UI 1.10 is released
-    if (typeof options.buttons === 'undefined') {
-        return dialog;
-    }
-    var buttons = dialog.parent().find('.ui-dialog-buttonpane');
-    for (var i = 0, l = options.buttons.length; i < l; i++) {
-        aButton(buttons.find('button:eq(' + i + ')'), {
-            icons: {
-                primary: options.buttons[i].icons.primary
-            }
-        });
-    }
+    dialog.parent().css({
+        position: 'fixed',
+        top: (parseInt(dialog.parent().css('top')) || 0) - $(window).scrollTop()
+    });
     return dialog;
 }
 
