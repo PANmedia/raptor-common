@@ -15,11 +15,9 @@
  */
 function aButton(element, options) {
     // <strict>
-/*
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aButton is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aButton is expected to be a jQuery compatible object', element);
     }
-*/
     // </strict>
 
     return $(element).button(options);
@@ -34,8 +32,8 @@ function aButton(element, options) {
  */
 function aButtonSetLabel(element, text) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aButtonSetLabel is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aButtonSetLabel is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
@@ -52,8 +50,8 @@ function aButtonSetLabel(element, text) {
  */
 function aButtonSetIcon(element, icon) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aButtonSetIcon is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aButtonSetIcon is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
@@ -70,8 +68,8 @@ function aButtonSetIcon(element, icon) {
  */
 function aButtonEnable(element) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aButtonEnable is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aButtonEnable is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
@@ -90,8 +88,8 @@ function aButtonIsEnabled(element) {
  */
 function aButtonDisable(element) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aButtonDisable is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aButtonDisable is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
@@ -106,8 +104,8 @@ function aButtonDisable(element) {
  */
 function aButtonActive(element) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aButtonActive is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aButtonActive is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
@@ -122,8 +120,8 @@ function aButtonActive(element) {
  */
 function aButtonInactive(element) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aButtonInactive is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aButtonInactive is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
@@ -139,8 +137,8 @@ function aButtonInactive(element) {
  */
 function aMenu(element, options) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aMenu is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aMenu is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
@@ -156,16 +154,17 @@ function aMenu(element, options) {
  */
 function aDialog(element, options) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aDialog is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aDialog is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
+    options.dialogClass = typeof options.dialogClass !== 'undefined' ? options.dialogClass + ' ui-dialog-fixed' : 'ui-dialog-fixed';
     var dialog = $(element).dialog(options);
     dialog.parent().css({
-        position: 'fixed',
         top: (parseInt(dialog.parent().css('top')) || 0) - $(window).scrollTop()
     });
+    dialog.dialog("option", "position", 'center');
     return dialog;
 }
 
@@ -177,8 +176,8 @@ function aDialog(element, options) {
  */
 function aDialogOpen(element) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aDialogOpen is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aDialogOpen is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
@@ -193,12 +192,22 @@ function aDialogOpen(element) {
  */
 function aDialogClose(element) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aDialogClose is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aDialogClose is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
     return $(element).dialog('close');
+}
+
+function aDialogRemove(element) {
+    // <strict>
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aDialogClose is expected to be a jQuery compatible object', element);
+    }
+    // </strict>
+
+    return $(element).dialog('destroy').remove();
 }
 
 /**
@@ -210,8 +219,8 @@ function aDialogClose(element) {
  */
 function aTabs(element, options) {
     // <strict>
-    if (!typeIsElement(element)) {
-        handleInvalidArgumentError('Parameter 1 to aTabs is expected to be a jQuery element', element);
+    if (!typeIsJQueryCompatible(element)) {
+        handleInvalidArgumentError('Parameter 1 to aTabs is expected to be a jQuery compatible object', element);
     }
     // </strict>
 
