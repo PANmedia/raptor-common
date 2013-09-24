@@ -30,3 +30,16 @@ function nodeFromHtml(html) {
     node.innerHTML = html;
     return node.children[0];
 }
+
+function nodeClassSwitch(node, classAdd, classRemove) {
+    node.classList.add(classAdd);
+    node.classList.remove(classRemove);
+}
+
+function nodeLastChild(node) {
+    var lastChild = node.lastChild
+    while (lastChild && lastChild.nodeType !== 1) {
+        lastChild = lastChild.previousSibling;
+    }
+    return lastChild;
+}
