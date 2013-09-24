@@ -94,6 +94,6 @@ function handleError(errorMessage) {
 }
 
 function handleInvalidArgumentError(errorMessage, argument) {
-    handleError(errorMessage + ', got: ', argument);
+    handleError(errorMessage + ', got: ', argument, typeof argument);
 }
 // </strict>
