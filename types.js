@@ -70,3 +70,7 @@ function typeIsTextNode(object) {
 function typeIsElement(object) {
     return object instanceof jQuery;
 }
+
+function typeIsJQueryCompatible(object) {
+    return object instanceof Node || object instanceof NodeList || object instanceof HTMLCollection || object instanceof jQuery;
+}
