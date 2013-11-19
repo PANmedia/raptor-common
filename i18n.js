@@ -24,9 +24,9 @@ var localeNames = {};
 /**
  *
  * @static
- * @param {String} name
- * @param {String} nativeName
- * @param {Object} strings
+ * @param {String} languageCode The language code (e.g. `en`, `fr`, `zh-CN`).
+ * @param {String} nativeName The languages native name.
+ * @param {Object} [strings] Locale keys mapped to phrases.
  */
 function registerLocale(name, nativeName, strings) {
     // <strict>
@@ -48,23 +48,28 @@ function registerLocale(name, nativeName, strings) {
 }
 
 /**
- * Extends an existing locale.
+ * Extends an existing locale, or registers it if it does not already exist.
  *
  * @static
- * @param {String} name
- * @param {Object} strings
+ * @param {String} languageCode The language code (e.g. `en`, `fr`, `zh-CN`).
+ * @param {String|Object} nativeName The languages native name, or an locale keys mapped to phrases.
+ * @param {Object} [strings] Locale keys mapped to phrases.
  */
-function extendLocale(name, nativeName, strings) {
-    if (typeof locales[name] === 'undefined') {
-        registerLocale(name, nativeName, strings);
+function extendLocale(languageCode, nativeName, strings) {
+    if (typeof locales[languageCode] === 'undefined') {
+        registerLocale(languageCode, nativeName, strings);
     } else {
         // <debug>
         if (debugLevel > MIN) {
-            handleError('Locale ' + name + ' extended.');
+            handleError('Locale ' + languageCode + ' extended.');
         }
         // </debug>
+
+        // Allow only passing the nativeName once.
+        strings = strings || nativeName;
+
         for (var key in strings) {
-            locales[name][key] = strings[key];
+            locales[languageCode][key] = strings[key];
         }
     }
 }
