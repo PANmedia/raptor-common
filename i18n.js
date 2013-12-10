@@ -9,7 +9,9 @@
 /**
  * @type String|null
  */
-var currentLocale = null;
+var currentLocale = 'en';
+
+var localeFallback = 'en';
 
 /**
  * @type Object
@@ -103,6 +105,10 @@ function getLocalizedString(string, allowMissing) {
     if (typeof locales[currentLocale] !== 'undefined' &&
             typeof locales[currentLocale][string] !== 'undefined') {
         return locales[currentLocale][string];
+    }
+
+    if (typeof locales[localeFallback][string] !== 'undefined') {
+        return locales[localeFallback][string];
     }
 
     for (var localeName in localeNames) {
