@@ -9,7 +9,7 @@
 /**
  * @type String|null
  */
-var currentLocale = 'en';
+var currentLocale = null;
 
 var localeFallback = 'en';
 
@@ -44,9 +44,6 @@ function registerLocale(name, nativeName, strings) {
 
     locales[name] = strings;
     localeNames[name] = nativeName;
-    if (!currentLocale) {
-        currentLocale = name;
-    }
 }
 
 /**
@@ -107,7 +104,8 @@ function getLocalizedString(string, allowMissing) {
         return locales[currentLocale][string];
     }
 
-    if (typeof locales[localeFallback][string] !== 'undefined') {
+    if (typeof locales[localeFallback] !== 'undefined' &&
+            typeof locales[localeFallback][string] !== 'undefined') {
         return locales[localeFallback][string];
     }
 
@@ -143,6 +141,16 @@ function getLocalizedString(string, allowMissing) {
  * @param {Object|false} variables If false, then no string is returned by default.
  */
 function tr(string, variables) {
+    if (!currentLocale) {
+        var lastLocale = Raptor.persist('locale');
+        if (lastLocale) {
+            currentLocale = lastLocale;
+        }
+    } 
+    if (!currentLocale) {
+        currentLocale = 'en';
+    }
+
     // Get the current locale translated string
     string = getLocalizedString(string, variables === false);
     if (string === false) {
