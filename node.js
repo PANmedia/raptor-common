@@ -5,11 +5,14 @@
  * @returns {String} The unique ID.
  */
 function nodeUniqueId(node) {
-    if (!node.id) {
+    if (!node || !node.id) {
         var id;
         do {
             id = 'ruid-' + Math.random().toString().replace('.', '');
         } while (document.getElementById(id))
+        if (!node) {
+            return id;
+        }
         node.id = id;
     }
     return node.id;
