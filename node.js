@@ -43,3 +43,16 @@ function nodeLastChild(node) {
     }
     return lastChild;
 }
+
+function nodeOffsetTop(node) {
+    var offsetTop = 0;
+    do {
+        if (node.tagName === 'BODY') {
+            break;
+        } else {
+            offsetTop += node.offsetTop;
+        }
+        node = node.offsetParent;
+    } while(node);
+    return offsetTop;
+}
