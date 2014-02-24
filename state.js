@@ -1,6 +1,6 @@
 var stateDirty = {};
 
-window.addEventListener('beforeunload', stateCheckDirty);
+jQuery(window).on('beforeunload', stateCheckDirty);
 
 function stateSetDirty(owner, dirty) {
     if (dirty) {
