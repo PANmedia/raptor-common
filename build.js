@@ -10,6 +10,7 @@ builder.addModule({
         __dirname + '/node.js',
         __dirname + '/plugin.js',
         __dirname + '/state.js',
+        __dirname + '/string.js',
         __dirname + '/template.js',
         __dirname + '/toolbar.js',
         __dirname + '/types.js',
