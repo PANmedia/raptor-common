@@ -7,8 +7,22 @@ function Plugin(overrides) {
 Plugin.prototype.init = function() {}
 
 function pluginPluggable(object) {
-    object.plugins = {};
-    object.registerPlugin = pluginRegister;
+    object.registerPlugin = function(plugin) {
+        // <strict>
+        if (typeof plugin !== 'object') {
+            handleError('Plugin "' + plugin + '" is invalid (must be an object)');
+            return;
+        } else if (typeof plugin.name !== 'string') {
+            handleError('Plugin "'+ plugin + '" is invalid (must have a name property)');
+            return;
+        } else if (this.prototype.plugins[plugin.name]) {
+            handleError('Plugin "' + plugin.name + '" has already been registered, and will be overwritten');
+        }
+        // </strict>
+
+        this.prototype.plugins[plugin.name] = plugin;
+    };
+    object.prototype.plugins = {};
     object.prototype.pluginInstances = {};
 };
 
@@ -32,20 +46,4 @@ function pluginPrepare(pluggable, plugin, pluginOptions) {
         ui: ui,
         instance: instance
     };
-};
-
-function pluginRegister(plugin) {
-    // <strict>
-    if (typeof plugin !== 'object') {
-        handleError('Plugin "' + plugin + '" is invalid (must be an object)');
-        return;
-    } else if (typeof plugin.name !== 'string') {
-        handleError('Plugin "'+ plugin + '" is invalid (must have a name property)');
-        return;
-    } else if (this.plugins[plugin.name]) {
-        handleError('Plugin "' + plugin.name + '" has already been registered, and will be overwritten');
-    }
-    // </strict>
-
-    this.plugins[plugin.name] = plugin;
 };
