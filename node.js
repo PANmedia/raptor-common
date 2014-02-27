@@ -28,8 +28,8 @@ function nodeClosestByClassName(node, className) {
     return null;
 }
 
-function nodeFromHtml(html) {
-    var node = document.createElement('div');
+function nodeFromHtml(html, wrapper) {
+    var node = document.createElement(wrapper || 'div');
     node.innerHTML = html;
     return node.children[0];
 }
