@@ -1,5 +1,5 @@
-function toolbarLayout(pluggable, uiOrder, panelElement) {
-    panelElement = $(panelElement);
+function toolbarLayout(pluggable, uiOrder, panelElement, data) {
+    panelElement = $(panelElement || document.createElement('div'));
     // Loop the UI component order option
     for (var i = 0, l = uiOrder.length; i < l; i++) {
         var uiGroupContainer = $('<div/>')
@@ -22,7 +22,9 @@ function toolbarLayout(pluggable, uiOrder, panelElement) {
             }
 
             var component = pluginPrepare(pluggable, pluggable.plugins[uiGroup[ii]], pluginOptions);
-            // component.instance.layout = layout;
+            for (var key in data) {
+                component.instance[key] = data[key];
+            }
 
             pluggable.pluginInstances[uiGroup[ii]] = component.instance;
 
@@ -44,4 +46,5 @@ function toolbarLayout(pluggable, uiOrder, panelElement) {
     // Fix corner classes
     panelElement.find('.ui-button:first-child').addClass('ui-corner-left');
     panelElement.find('.ui-button:last-child').addClass('ui-corner-right');
+    return panelElement[0];
 };
