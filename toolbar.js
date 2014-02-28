@@ -1,4 +1,4 @@
-function toolbarLayout(pluggable, uiOrder, panelElement, data) {
+function toolbarLayout(pluggable, uiOrder, panelElement, pluginAttributes) {
     panelElement = $(panelElement || document.createElement('div'));
     // Loop the UI component order option
     for (var i = 0, l = uiOrder.length; i < l; i++) {
@@ -21,10 +21,7 @@ function toolbarLayout(pluggable, uiOrder, panelElement, data) {
                 continue;
             }
 
-            var component = pluginPrepare(pluggable, pluggable.plugins[uiGroup[ii]], pluginOptions);
-            for (var key in data) {
-                component.instance[key] = data[key];
-            }
+            var component = pluginPrepare(pluggable, pluggable.plugins[uiGroup[ii]], pluginOptions, pluginAttributes);
 
             pluggable.pluginInstances[uiGroup[ii]] = component.instance;
 

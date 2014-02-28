@@ -26,7 +26,7 @@ function pluginPluggable(object) {
     object.prototype.pluginInstances = {};
 };
 
-function pluginPrepare(pluggable, plugin, pluginOptions) {
+function pluginPrepare(pluggable, plugin, pluginOptions, pluginAttributes) {
     var instance = $.extend({}, plugin);
 
     var options = $.extend({}, pluggable.options, {
@@ -35,6 +35,11 @@ function pluginPrepare(pluggable, plugin, pluginOptions) {
 
     instance.pluggable = pluggable;
     instance.options = options;
+
+    for (var key in pluginAttributes) {
+        instance[key] = pluginAttributes[key];
+    }
+
     // <strict>
     if (!instance.init) {
         handleError('Component missing init function: ' + instance.name);
