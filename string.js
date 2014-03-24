@@ -16,3 +16,13 @@ function stringFromCamelCase(string, delimiter) {
         return (delimiter || '-') + match.toLowerCase();
     });
 }
+
+function stringToCamelCase(string, ucFirst) {
+    var result = string.toLowerCase().replace(/[^a-z0-9](.)/ig, function(match, char) {
+        return char.toUpperCase();
+    });
+    if (ucFirst !== false) {
+        result = stringUcFirst(result);
+    }
+    return result;
+}
