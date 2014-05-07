@@ -59,3 +59,17 @@ function nodeOffsetTop(node) {
     } while(node);
     return offsetTop;
 }
+
+function nodeFreezeHeight(node) {
+    if (typeof node.dataset.height === 'undefined') {
+        node.dataset.height = node.style.height;
+        node.style.height = document.body.clientHeight + 'px';
+    }
+}
+
+function nodeUnfreezeHeight(node) {
+    if (typeof node.dataset.height !== 'undefined') {
+        node.style.height = node.dataset.height;
+        delete node.dataset.height;
+    }
+}
