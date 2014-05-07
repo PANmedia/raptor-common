@@ -8,6 +8,7 @@ builder.addModule({
         __dirname + '/format.js',
         __dirname + '/i18n.js',
         __dirname + '/node.js',
+        __dirname + '/persist.js',
         __dirname + '/plugin.js',
         __dirname + '/state.js',
         __dirname + '/string.js',
