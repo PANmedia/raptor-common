@@ -44,8 +44,18 @@ function info() {
  */
 function debug() {
     var args = Array.prototype.slice.call(arguments);
-    args.unshift('[Raptor]: ');
-    (console.debug || console.log).apply(console, args);
+    if (console && console.debug && console.debug.apply) {
+        args.unshift('[Raptor]: ');
+        console.debug.apply(console, args);
+    }
+    if (console && console.log && console.log.apply) {
+        args.unshift('[Raptor]: ');
+        console.log.apply(console, args);
+    }
+    if (console && console.log) {
+        args.unshift('[Raptor]');
+        console.log(args);
+    }
 }
 
 var abortLoopCount = null;
