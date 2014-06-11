@@ -1,8 +1,10 @@
 var ajax = function(args) {
     var url = args.url;
     if (args.data && args.method !== 'POST' || args.queryString) {
-        url += '?' + ajax.prepare(data);
+        url += '?' + ajax.prepare(args.data);
         args.data = undefined;
+    } else if (typeof args.data !== 'undefined') {
+        args.data = ajax.prepare(args.data);
     }
     ajax.send(url, args.success, args.method || 'GET', args.data, args.async, args.headers || {})
 };
@@ -40,11 +42,11 @@ ajax.get = function(url, data, successCallback, async, headers, method) {
         success: successCallback,
         async: async,
         headers: headers,
-        method: method
+        method: method || 'GET'
     });
 };
 
-ajax.post = function(url, data, callback, async, headers, method) {
+ajax.post = function(url, data, successCallback, async, headers, method) {
     ajax({
         url: url,
         data: data,
