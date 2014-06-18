@@ -73,3 +73,30 @@ function nodeUnfreezeHeight(node) {
         delete node.dataset.height;
     }
 }
+
+function nodeMatches(node, selector) {
+    var method =
+        Element.prototype.matches ||
+        Element.prototype.matchesSelector ||
+        Element.prototype.mozMatchesSelector ||
+        Element.prototype.msMatchesSelector ||
+        Element.prototype.oMatchesSelector;
+    return method.call(node, selector);
+}
+
+function nodeFindUnnested(node, findSelector, nestedSelector) {
+    var nodes = node.querySelectorAll(findSelector),
+        result = [];
+    for (var i = 0; i < nodes.length; i++) {
+        var closest = nodes[i];
+        do {
+            if (nodeMatches(closest, nestedSelector)) {
+                break;
+            }
+        } while (closest = closest.parentNode);
+        if (closest == node) {
+            result.push(nodes[i]);
+        }
+    }
+    return result;
+}
