@@ -47,12 +47,10 @@ function debug() {
     if (console && console.debug && console.debug.apply) {
         args.unshift('[Raptor]: ');
         console.debug.apply(console, args);
-    }
-    if (console && console.log && console.log.apply) {
+    } else if (console && console.log && console.log.apply) {
         args.unshift('[Raptor]: ');
         console.log.apply(console, args);
-    }
-    if (console && console.log) {
+    } else if (console && console.log) {
         args.unshift('[Raptor]');
         console.log(args);
     }
