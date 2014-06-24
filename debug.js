@@ -78,23 +78,24 @@ function abortLoop(i) {
  * @param {String} errorMessage The error message to display or throw
  */
 function handleError(errorMessage) {
-    if (console && console.error) {
-        var args = Array.prototype.slice.call(arguments);
-
-        // <ie>
-        if (!console.error.apply) {
-            for (var i = 0, l = args.length;i < l; i++) {
-                console.error(args[i]);
-            }
-            return;
-        }
-        // </ie>
-
-
+    var args = Array.prototype.slice.call(arguments);
+    if (console && console.error && console.error.apply) {
+        args.unshift('[Raptor][Error]: ');
         console.error.apply(console, args);
-        if (args[0] instanceof Error) {
-            console.error.apply(console, [args[0].toString()]);
-            console.error.apply(console, [args[0].stack]);
+        if (args[1] && args[1].stack) {
+            console.error.apply(console, [args[1].stack]);
+        }
+    } else if (console && console.log && console.log.apply) {
+        args.unshift('[Raptor][Error]: ');
+        console.log.apply(console, args);
+        if (args[1] && args[1].stack) {
+            console.log.apply(console, [args[1].stack]);
+        }
+    } else if (console && console.log) {
+        args.unshift('[Raptor][Error]');
+        console.log(args);
+        if (args[1] && args[1].stack) {
+            console.log(args[1].stack);
         }
     } else {
         throw errorMessage;
