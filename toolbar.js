@@ -8,14 +8,14 @@ function toolbarLayout(pluggable, uiOrder, panelElement, pluginAttributes) {
         // Loop each UI in the group
         var uiGroup = uiOrder[i];
         for (var ii = 0, ll = uiGroup.length; ii < ll; ii++) {
-            // <strict>
             // Check the UI has been registered
             if (!pluggable.plugins[uiGroup[ii]]) {
-                handleError('Plugin identified by key "' + uiGroup[ii] + '" does not exist');
+                // <strict>
+                debug('Plugin identified by key "' + uiGroup[ii] + '" does not exist');
+                // </strict>
                 continue;
             }
 
-            // </strict>
             var pluginOptions = pluggable.plugins[uiGroup[ii]];
             if (pluginOptions === false) {
                 continue;
