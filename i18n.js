@@ -38,7 +38,7 @@ function registerLocale(name, nativeName, strings) {
     // </strict>
     // <debug>
     if (debugLevel > MIN) {
-        handleError('Locale ' + name + ' registered.');
+        debug('Locale ' + name + ' registered.');
     }
     // </debug>
 
@@ -60,7 +60,7 @@ function extendLocale(languageCode, nativeName, strings) {
     } else {
         // <debug>
         if (debugLevel > MIN) {
-            handleError('Locale ' + languageCode + ' extended.');
+            debug('Locale ' + languageCode + ' extended.');
         }
         // </debug>
 
@@ -146,7 +146,7 @@ function tr(string, variables) {
         if (lastLocale) {
             currentLocale = lastLocale;
         }
-    } 
+    }
     if (!currentLocale) {
         currentLocale = 'en';
     }
