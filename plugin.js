@@ -27,6 +27,16 @@ function pluginPluggable(object) {
 };
 
 function pluginPrepare(pluggable, plugin, pluginOptions, pluginAttributes) {
+    // <strict>
+    if (typeof plugin !== 'object') {
+        handleError('Plugin "' + plugin + '" is invalid (must be an object)');
+        return;
+    } else if (typeof plugin.name !== 'string') {
+        handleError('Plugin "'+ plugin + '" is invalid (must have a name property)');
+        return;
+    }
+    // </strict>
+
     var instance = $.extend({}, plugin);
 
     var options = $.extend({}, pluggable.options, {
